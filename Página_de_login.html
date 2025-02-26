@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login - Loja de Produtos Religiosos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            background-image: url('https://static.vecteezy.com/ti/vetor-gratis/p1/2707512-fundo-roxo-e-dourado-luxuoso-vetor.jpg');
+            background-size: auto; /* Mantém o tamanho original da imagem */
+            background-repeat: no-repeat; /* Não repetir a imagem */
+            background-position: center; /* Centraliza a imagem */
+            background-attachment: fixed; /* Mantém a imagem fixa ao rolar */
+}
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Coloca o fundo atrás do conteúdo */
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill; /* Faz com que a imagem ocupe toda a tela sem cortes */
+        }
+
+        /* Ajuste para dispositivos móveis */
+        @media (max-width: 768px) {
+            html, body {
+                height: 100vh; /* Garante que a imagem inteira seja visível */
+                background-attachment: fixed; /* Evita rolagem da imagem */
+            }
+        }
+        .login-container {
+            background-color: rgba(46, 10, 77, 0.9); /* Roxo bem escuro com transparência */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 215, 0, 0.5); /* Efeito de brilho */
+            width: 90%; /* Largura responsiva */
+            max-width: 400px; /* Largura máxima */
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #DAA520; /* Tom de ouro escuro */
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #DAA520; /* Tom de ouro escuro */
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff; /* Cor do texto nos campos */
+            background-color: #3B0F5B; /* Fundo dos campos de entrada */
+        }
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #DAA520; /* Tom de ouro escuro */
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 40%; /* Largura responsiva */
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 5px 1%; /* Margem para espaçamento */
+        }
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #CDAA20; /* Tom de ouro mais claro ao passar o mouse */
+        }
+        .footer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #DAA520; /* Tom de ouro escuro */
+        }
+        .oauth {
+            margin-top: 10px;
+        }
+        .oauth img {
+            width: 30px; /* Tamanho fixo para os ícones */
+            margin: 0 1px; /* Espaçamento entre os ícones */
+        }
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 15px; /* Menos padding em telas menores */
+            }
+            h2 {
+                font-size: 1.5em; /* Tamanho de fonte menor */
+            }
+            input[type="text"],
+            input[type="password"],
+            input[type="submit"],
+            input[type="button"] {
+                font-size: 14px; /* Tamanho de fonte menor */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Bem-vindo à Nossa Loja</h2>
+        <form>
+            <input type="text" placeholder="Usuário" required>
+            <input type="password" placeholder="Senha" required>
+            <input type="submit" value="Entrar">
+            <input type="button" value="Cadastre-se" onclick="window.location.href='Página_de_cadastro.html';">
+        </form>
+        <div class="oauth">
+            <a href="">
+                <img src="C:\Users\pedro\OneDrive\Documentos\Pedro\Projeto Sagrado na porta\Imagem\Logo facebook.png" alt="Facebook">
+            </a>
+            <a href="">
+                <img style="position: relative; top: -3px;" src="C:\Users\pedro\OneDrive\Documentos\Pedro\Projeto Sagrado na porta\Imagem\Logo google.png" alt="Google">
+            </a>
+        </div>
+        <div class="footer">
+            <p>Esqueceu a senha?</p>
+        </div>
+    </div>
+</body>
+</html>

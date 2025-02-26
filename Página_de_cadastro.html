@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Cadastro - Loja de Produtos Religiosos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+            overflow: hidden; /* Evita barras de rolagem na tela inteira */
+            position: relative; /* Necessário para a posição do fundo */
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Coloca o fundo atrás do conteúdo */
+            background-image: url('https://static.vecteezy.com/ti/vetor-gratis/p1/2707512-fundo-roxo-e-dourado-luxuoso-vetor.jpg');
+            background-size: cover; /* Faz a imagem cobrir toda a tela sem distorcer */
+            background-position: center center; /* Centraliza a imagem */
+            background-repeat: no-repeat; /* Não repete a imagem */
+        }
+
+        .signup-container {
+            background-color: rgba(46, 10, 77, 0.9); /* Roxo bem escuro com transparência */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 25px rgba(255, 215, 0, 0.5); /* Efeito de brilho */
+            width: 90%; /* Largura responsiva */
+            max-width: 500px; /* Largura máxima */
+            text-align: center;
+            overflow-y: auto; /* Permite rolar caso o conteúdo ultrapasse a tela */
+            height: 90%; /* Garante que a altura seja ajustada */
+            box-sizing: border-box; /* Faz com que o padding e a borda sejam incluídos no tamanho total */
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 700;
+            color: #DAA520; /* Tom de ouro escuro */
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select,
+        input[type="date"] {
+            width: calc(100% - 24px); /* Ajuste a largura para compensar o padding */
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #DAA520; /* Tom de ouro escuro */
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff; /* Cor do texto nos campos */
+            background-color: #3B0F5B; /* Fundo dos campos de entrada */
+            box-sizing: border-box; /* Garante que o padding não ultrapasse a largura total */
+        }
+
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #DAA520; /* Tom de ouro escuro */
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: calc(100% - 24px); /* Ajuste a largura para os botões também */
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin: 5px 0; /* Margem para espaçamento */
+            box-sizing: border-box;
+        }
+
+        input[type="submit"]:hover,
+        input[type="button"]:hover {
+            background-color: #CDAA20; /* Tom de ouro mais claro ao passar o mouse */
+        }
+
+        .footer {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #DAA520; /* Tom de ouro escuro */
+        }
+
+        .oauth {
+            margin-top: 10px;
+        }
+
+        .oauth img {
+            width: 30px; /* Tamanho fixo para os ícones */
+            margin: 0 1px; /* Espaçamento entre os ícones */
+        }
+
+        @media (max-width: 768px) {
+            .signup-container {
+                padding: 20px; /* Menos padding em telas menores */
+            }
+
+            h2 {
+                font-size: 1.5em; /* Tamanho de fonte menor */
+            }
+
+            input[type="text"],
+            input[type="email"],
+            input[type="password"],
+            input[type="number"],
+            input[type="submit"],
+            input[type="button"],
+            select,
+            input[type="date"] {
+                font-size: 14px; /* Tamanho de fonte menor */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>    
+    <div class="signup-container">
+        <h2>Cadastro - Loja de Produtos Religiosos</h2>
+        <form>
+            <input type="text" placeholder="Nome" required>
+            <select required>
+                <option value="" disabled selected>Sexo</option>
+                <option value="masculino">Masculino</option>
+                <option value="feminino">Feminino</option>
+                <option value="outro">Outro</option>
+            </select>
+            <input type="date" placeholder="Data de Nascimento" required>
+            <input type="text" placeholder="CPF" required>
+            <input type="email" placeholder="E-mail" required>
+            <input type="text" placeholder="CEP" required>
+            <input type="text" placeholder="Logradouro" required>
+            <input type="number" placeholder="Número" required>
+            <input type="text" placeholder="Complemento" required>
+            <input type="text" placeholder="Bairro" required>
+            <input type="text" placeholder="Cidade" required>
+            <select required>
+                <option value="" disabled selected>Estado</option>
+                <option value="SP">São Paulo</option>
+                <option value="RJ">Rio de Janeiro</option>
+                <option value="MG">Minas Gerais</option>
+                <!-- Adicione mais estados conforme necessário -->
+            </select>
+            <input type="password" placeholder="Senha" required>
+            <input type="password" placeholder="Confirmar Senha" required>
+            <input type="submit" value="Cadastrar">
+        </form>
+        <div class="footer">
+            <p>Já tem uma conta? <a href="Página_de_login.html" style="color: #DAA520;">Entre aqui</a></p>
+        </div>
+    </div>
+</body>
+</html>
