@@ -103,7 +103,7 @@
             padding: 15px 0;
             text-align: center;
             z-index: 1000;
-            margin-top: auto; /* Garante que o footer fique no final da página */
+            margin-top: auto;
         }
         .footer a {
             color: white;
@@ -205,11 +205,13 @@
             <button class="btn border-0 bg-transparent position-relative" style="left: 1010px">
                 <i class="bi bi-person" style="color: #ce9647; font-size: 1.5rem;"></i>
             </button>                      
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 
             </div>
         </div>
     </nav>
+    <!--
     <div class="sidebar">
         <div class="filter-item">
             <h5 class="filter-label">Categorias</h5>
@@ -224,6 +226,7 @@
             <span id="priceValue">R$ 100</span>
         </div>
     </div>
+    -->
     <div class="main-content">
         <div class="container mt-1">
             <div class="row row-cols-1 row-cols-md-4 g-4">
@@ -286,7 +289,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary">Finalizar Compra</button>
+                    <button type="button" class="btn btn-primary" onclick="finalizarCompra()">Finalizar Compra</button>
                 </div>
             </div>
         </div>
@@ -296,7 +299,7 @@
             <div class="footer-column">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link active" href="#">Início</a>
+                        <a class="nav-link active" href="Home_page.html">Início</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Produtos</a>
@@ -312,12 +315,6 @@
             <div class="footer-column">
                 <p class="directed">© 2025 Loja Sagrado - Todos os Direitos Reservados</p>
             </div>
-            <!--
-            <div class="footer-column">
-                <a href="#">Política de Privacidade</a>
-                <a href="#">Termos de Serviço</a>
-            </div>
-            -->
         </div>
     </div>
     <script>
@@ -363,23 +360,49 @@
                 cartItemsList.appendChild(itemDiv);
             });
 
-            // Atualiza o preço total
+            // Atualiza o total no modal
             document.getElementById('cartTotal').innerHTML = `<strong>Total: R$ ${totalPrice.toFixed(2)}</strong>`;
         }
 
         function updateQuantity(name, delta) {
             let item = cart.find(i => i.name === name);
             if (item) {
-                item.quantity += delta;
-                if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.name !== name);
-                }
-                updateCart();
+                item.quantity = Math.max(1, item.quantity + delta);  // Evita quantidade negativa
             }
+            updateCart();
         }
-        function updatePriceValue(value) {
-    document.getElementById('priceValue').innerText = `R$ ${parseFloat(value).toFixed(2)}`;
+
+        function finalizarCompra() {
+            alert("Compra finalizada!");
+            cart = [];
+            updateCart();
+        }
+        function finalizarCompra() {
+    if (cart.length === 0) {
+        alert("O carrinho está vazio. Adicione itens antes de finalizar a compra.");
+        return;
     }
+
+    // Log para verificar se a função está sendo chamada
+    console.log("Finalizando compra...");
+
+    // Salvar os itens do carrinho no localStorage (para persistência)
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Calcular o total
+    let totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+
+    // Exibir alerta de finalização de compra
+    alert(`Compra finalizada! Total: R$ ${totalPrice.toFixed(2)}. Você será redirecionado para o checkout.`);
+
+    // Limpar o carrinho após a compra
+    cart = [];
+    updateCart();  // Atualiza a interface do carrinho (limpa o modal)
+
+    // Redirecionar para a página de checkout
+    window.location.href = "checkout.html";  // Certifique-se de que o caminho está correto
+}
+
     </script>
 </body>
 </html>
