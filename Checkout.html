@@ -3,168 +3,319 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja Sagrado - Delivery de Produtos Religiosos</title>
+    <title>Checkout - Loja Sagrado</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
-        :root {
-            --primary-color: #3b3b58;
-            --secondary-color: #f8c471;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f8f9fa;
-            color: #333;
-            margin-top: 60px;
         }
-
-        .navbar {
-            background-color: var(--primary-color) !important;
+        .product-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
-
-        .navbar-brand, .nav-link {
-            color: var(--secondary-color) !important;
+        .product-item img {
+            max-width: 100px;
+            height: auto;
         }
-
-        .card-body {
-            text-align: center;
+        .product-item .product-details {
+            margin-left: 15px;
+            flex-grow: 1;
         }
-
+        .product-item .product-name {
+            font-weight: bold;
+            position: relative;
+            top: 9px;
+        }
+        .product-item .product-price {
+            color: #7B3083;
+            font-size: 1.2rem;
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            top: 10px;
+        }
+        .product-item .quantity-adjust {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+        }
+        .product-item .quantity-adjust button {
+            background-color: #7B3083;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+        .product-item .quantity-adjust button:hover {
+            background-color: #ce9647;
+        }
+        .btn-proceed {
+            background-color: #7B3083;
+            color: white;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .btn-proceed:hover {
+            background-color: #ce9647;
+        }
         .footer {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 30px 0;
-            text-align: center;
-        }
-
-        .checkout-container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-finalizar {
-            background-color: var(--primary-color);
-            color: white;
             width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 16px;
+            background-color: #7B3083;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+            margin-top: 40px;
         }
-
-        .btn-finalizar:hover {
-            background-color: var(--secondary-color);
+        .delivery-fee, .payment-methods {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .payment-methods input[type="radio"] {
+            margin-right: 10px;
+        }
+        .modal-header {
+            background-color: #7B3083;
+            color: white;
+        }
+        .modal-footer {
+            background-color: #f8f9fa;
+        }
+        .total-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            position: relative;
+            top: 250px;
+        }
+        .total-container h4,
+        .total-container .btn-proceed {
+            margin: 0 15px;
+        }
+        .mt-4 {
+            margin-top: 1.5rem!important;
+            position: relative;
+            bottom: 80px;
+        }
+        /* Diminuindo a largura do campo de CEP */
+        #cep {
+            width: 150px; /* Definindo largura personalizada para o campo CEP */
         }
     </style>
 </head>
 <body>
-
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Loja Sagrado</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Produtos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Sobre</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contato</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="checkout.html">🛒 Carrinho (<span id="cart-count">0</span>)</a>
-                    </li>
-                </ul>
+    <!-- Header da Loja -->
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="m-0">Loja Sagrado</h1>
+                    <p class="m-0">Produtos religiosos com qualidade e respeito</p>
+                </div>
+                <div>
+                    <a href="index.html" class="text-white me-3">Início</a>
+                    <a href="cart.html" class="text-white">Carrinho</a>
+                </div>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Banner -->
-    <div class="banner">
-        <div class="address-input-container">
-            <h3>Digite seu Endereço de Entrega</h3>
-            <input type="text" class="form-control" placeholder="Digite seu endereço" required>
-            <button class="btn btn-primary">Confirmar Endereço</button>
-        </div>
-    </div>
-    <!-- Checkout -->
     <div class="container mt-5">
-        <div class="checkout-container">
-            <h3 class="text-center mb-4">Finalizar Compra</h3>
-            <ul class="list-group mb-3" id="checkoutItems"></ul>
-            <h5 class="mt-3">Total: <span id="totalPrice">R$ 0,00</span></h5>
-            <button class="btn btn-finalizar mt-3" onclick="finalizarCompra()">Confirmar Pedido</button>
+        <h2>Resumo da Compra</h2>
+        <div id="cartItemsList"></div>
+        <div class="total-container">
+            <h4>Total: <span id="cartTotal">R$ 0.00</span></h4>
+            <button class="btn btn-proceed" onclick="finalizeCheckout()">Finalizar Compra</button>
+        </div>
+
+        <!-- Campo para Digitar o CEP -->
+        <div class="mt-4">
+            <label for="cep" class="form-label">Digite o CEP de entrega</label>
+            <input type="text" class="form-control" id="cep" placeholder="CEP (ex: 12345-678)" onkeyup="calcularTaxaEntrega()" required>
+            <div class="delivery-fee">
+                <strong>Taxa de Entrega: R$ <span id="taxaEntrega">0,00</span></strong>
+            </div>
+        </div>
+
+        <!-- Métodos de Pagamento -->
+        <div class="mt-4 payment-methods">
+            <h5>Selecione o Método de Pagamento</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentCard" value="cartao" onclick="showCreditCardModal()">
+                <label class="form-check-label" for="paymentCard">
+                    Cartão de Crédito/Débito
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentBoleto" value="boleto">
+                <label class="form-check-label" for="paymentBoleto">
+                    Boleto Bancário
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="paymentMethod" id="paymentPix" value="pix">
+                <label class="form-check-label" for="paymentPix">
+                    PIX
+                </label>
+            </div>
+        </div>
+
+        <!-- Modal para Cartão de Crédito -->
+        <div class="modal fade" id="creditCardModal" tabindex="-1" aria-labelledby="creditCardModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="creditCardModalLabel">Informações do Cartão de Crédito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="cardName" class="form-label">Nome Impresso no Cartão</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="Nome no Cartão" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Número do Cartão</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardExpiry" class="form-label">Validade</label>
+                            <input type="text" class="form-control" id="cardExpiry" placeholder="MM/AA" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardCVV" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cardCVV" placeholder="123" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" onclick="confirmPayment()">Confirmar Pagamento</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
-        <p>© 2025 Loja Sagrado - Todos os Direitos Reservados</p>
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Serviço</a>
-        <a href="#">Ajuda</a>
+        <p>&copy; 2025 Loja Sagrado - Todos os Direitos Reservados</p>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            atualizarContadorCarrinho();
-            carregarCarrinho();
-        });
+        // Verifica se há dados no localStorage
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-        function adicionarAoCarrinho(nome, preco) {
-            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-            let itemExistente = carrinho.find(item => item.nome === nome);
+        let cartTotal = 0;
+        let deliveryFee = 0;
 
-            if (itemExistente) {
-                itemExistente.quantidade += 1;
-            } else {
-                carrinho.push({ nome, preco, quantidade: 1 });
-            }
+        // Função para renderizar os itens no carrinho
+        function renderCartItems() {
+            let cartItemsList = document.getElementById('cartItemsList');
+            cartItemsList.innerHTML = ''; // Limpa os itens do carrinho
 
-            localStorage.setItem("carrinho", JSON.stringify(carrinho));
-            atualizarContadorCarrinho();
-        }
+            cartTotal = 0;
+            cart.forEach((item, index) => {
+                cartTotal += item.price * item.quantity;
+                let itemDiv = document.createElement('div');
+                itemDiv.classList.add('product-item');
+                itemDiv.innerHTML = `
 
-        function atualizarContadorCarrinho() {
-            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-            document.getElementById("cart-count").textContent = carrinho.length;
-        }
-
-        function carregarCarrinho() {
-            let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
-            let listaItens = document.getElementById("checkoutItems");
-            let total = 0;
-            listaItens.innerHTML = "";
-
-            if (carrinho.length === 0) {
-                listaItens.innerHTML = "<li class='list-group-item text-center'>Seu carrinho está vazio.</li>";
-                return;
-            }
-
-            carrinho.forEach(item => {
-                total += item.preco * item.quantidade;
-                listaItens.innerHTML += `
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>${item.nome} (x${item.quantidade})</span>
-                        <strong>R$ ${item.preco.toFixed(2)}</strong>
-                    </li>
+                    <img src="https://placehold.co/40x40" alt="${item.name}">
+                    <div class="product-details">
+                        <p class="product-name">${item.name}</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <p class="product-price">R$ ${item.price.toFixed(2)}</p>
+                        <div class="quantity-adjust">
+                            <button onclick="adjustQuantity(${index}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="adjustQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
                 `;
+                cartItemsList.appendChild(itemDiv);
             });
 
-            document.getElementById("totalPrice").textContent = `R$ ${total.toFixed(2)}`;
+            // Atualiza o total, incluindo a taxa de entrega
+            const totalWithFee = cartTotal + deliveryFee;
+            document.getElementById('cartTotal').innerText = `R$ ${totalWithFee.toFixed(2)}`;
         }
 
-        function finalizarCompra() {
-            alert("Compra finalizada com sucesso!");
-            localStorage.removeItem("carrinho");
-            window.location.reload();
+        // Função para ajustar a quantidade de um item
+        function adjustQuantity(index, delta) {
+            const item = cart[index];
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity < 1) {
+                    item.quantity = 1; // Impede que a quantidade seja menor que 1
+                }
+                // Atualiza o carrinho no localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCartItems(); // Re-renderiza os itens
+            }
         }
+
+        // Função para calcular a taxa de entrega com base no CEP
+        function calcularTaxaEntrega() {
+            const cep = document.getElementById("cep").value.replace(/\D/g, ''); // Remover qualquer caracter não numérico
+
+            if (cep.length === 8) { // Verifica se o CEP tem 8 dígitos
+                let taxa = 0;
+
+                // Exemplo de lógica de taxa de entrega
+                if (cep.startsWith("12") || cep.startsWith("13")) {
+                    taxa = 10.00;
+                } else if (cep.startsWith("14") || cep.startsWith("15")) {
+                    taxa = 15.00;
+                } else {
+                    taxa = 20.00; // Para outros CEPs
+                }
+
+                deliveryFee = taxa; // Atualiza a taxa de entrega
+                document.getElementById("taxaEntrega").textContent = taxa.toFixed(2);
+                renderCartItems(); // Recalcula o total
+            } else {
+                deliveryFee = 0; // Se o CEP for inválido, a taxa é 0
+                document.getElementById("taxaEntrega").textContent = "0,00";
+                renderCartItems(); // Recalcula o total
+            }
+        }
+
+        // Função para exibir o modal de Cartão de Crédito
+        function showCreditCardModal() {
+            if (document.getElementById("paymentCard").checked) {
+                // Abre o modal de cartão de crédito
+                const myModal = new bootstrap.Modal(document.getElementById('creditCardModal'));
+                myModal.show();
+            }
+        }
+
+        // Função para confirmar o pagamento
+        function confirmPayment() {
+            alert("Pagamento confirmado! Detalhes do pagamento serão processados.");
+            const myModal = bootstrap.Modal.getInstance(document.getElementById('creditCardModal'));
+            myModal.hide();
+        }
+
+        // Função para finalizar a compra
+        function finalizeCheckout() {
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+            alert(`Compra finalizada! Método de pagamento: ${paymentMethod}`);
+            localStorage.removeItem("cart"); // Limpa o carrinho após a finalização
+            window.location.href = "index.html"; // Redireciona para a página inicial
+        }
+
+        // Renderiza os itens no carrinho quando a página for carregada
+        renderCartItems();
     </script>
-
 </body>
 </html>
