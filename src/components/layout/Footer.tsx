@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin, CreditCard, Shield, Truck } from 'lucide-react';
+import logo from '/src/assets/logo.png'
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-primary-foreground">
+    <footer className="bg-[linear-gradient(135deg,#7C3083,#010101)] text-white [&_.font-semibold]:text-[#ce9647]">
       {/* Trust badges */}
       <div className="border-b border-primary-foreground/10">
         <div className="container-main py-8">
@@ -45,8 +46,8 @@ const Footer = () => {
           {/* About */}
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-accent flex items-center justify-center">
-                <span className="text-accent-foreground font-display text-lg font-bold">S</span>
+              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                <img src={logo} alt="Logo Sagrado Na Porta" className="w-full h-full object-cover"/>
               </div>
               <span className="font-display text-lg font-semibold">Sagrado Na Porta</span>
             </div>

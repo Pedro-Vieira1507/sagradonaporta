@@ -4,6 +4,7 @@ import { ShoppingCart, Search, Menu, X, User, Heart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useCart } from '@/hooks/useCart';
+import logo from '/src/assets/logo.png'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,8 +53,8 @@ const Header = () => {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-display text-xl font-bold">S</span>
+            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden">
+                <img src={logo} alt="Logo Sagrado Na Porta" className="w-full h-full object-cover"/>
             </div>
             <div className="hidden sm:block">
               <h1 className="font-display text-xl font-semibold text-foreground leading-tight">

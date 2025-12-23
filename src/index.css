@@ -18,8 +18,8 @@
     --popover-foreground: 20 15% 15%;
 
     /* Primary - Deep Burgundy/Wine */
-    --primary: 355 50% 35%;
-    --primary-foreground: 30 30% 98%;
+    --primary: 294 46% 35%;
+    --primary-foreground: 0 0% 100%;
 
     /* Secondary - Warm cream */
     --secondary: 35 30% 92%;
@@ -38,7 +38,7 @@
 
     --border: 35 20% 85%;
     --input: 35 20% 88%;
-    --ring: 355 50% 35%;
+    --ring: 294 46% 35%;
 
     --radius: 0.5rem;
 
@@ -47,15 +47,15 @@
     --gold-light: 43 70% 65%;
     --gold-dark: 43 80% 40%;
     
-    --burgundy: 355 50% 35%;
-    --burgundy-light: 355 45% 45%;
-    --burgundy-dark: 355 55% 25%;
+    --burgundy: 294 46% 35%;
+    --burgundy-light: 294 46% 45%;
+    --burgundy-dark: 294 46% 25%;
     
     --cream: 35 40% 95%;
     --cream-dark: 35 30% 88%;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(355 50% 35%) 0%, hsl(355 55% 25%) 100%);
+    --gradient-primary: linear-gradient(135deg, #7C3083 0%, #010101 100%);
     --gradient-gold: linear-gradient(135deg, hsl(43 75% 50%) 0%, hsl(43 80% 40%) 100%);
     --gradient-hero: linear-gradient(180deg, hsl(35 40% 95%) 0%, hsl(35 30% 90%) 100%);
     --gradient-card: linear-gradient(145deg, hsl(30 25% 99%) 0%, hsl(30 25% 96%) 100%);
@@ -65,7 +65,7 @@
     --shadow-md: 0 8px 24px -8px hsl(20 15% 15% / 0.12);
     --shadow-lg: 0 16px 48px -16px hsl(20 15% 15% / 0.15);
     --shadow-gold: 0 8px 32px -8px hsl(43 75% 50% / 0.25);
-    --shadow-burgundy: 0 8px 32px -8px hsl(355 50% 35% / 0.25);
+    --shadow-burgundy: 0 8px 32px -8px hsl(294 46% 35% / 0.25);
     
     /* Transitions */
     --transition-fast: all 0.15s ease;
@@ -74,8 +74,8 @@
 
     --sidebar-background: 35 30% 97%;
     --sidebar-foreground: 20 15% 25%;
-    --sidebar-primary: 355 50% 35%;
-    --sidebar-primary-foreground: 30 30% 98%;
+    --sidebar-primary: 294 46% 35%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 35 25% 92%;
     --sidebar-accent-foreground: 20 15% 20%;
     --sidebar-border: 35 20% 88%;
@@ -92,8 +92,8 @@
     --popover: 20 15% 10%;
     --popover-foreground: 35 25% 95%;
 
-    --primary: 43 70% 55%;
-    --primary-foreground: 20 15% 10%;
+    --primary: 294 46% 35%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 20 12% 18%;
     --secondary-foreground: 35 25% 95%;
@@ -109,11 +109,11 @@
 
     --border: 20 12% 22%;
     --input: 20 12% 22%;
-    --ring: 43 70% 55%;
+    --ring: 294 46% 35%;
 
     --sidebar-background: 20 15% 10%;
     --sidebar-foreground: 35 25% 92%;
-    --sidebar-primary: 43 70% 55%;
+    --sidebar-primary: 294 46% 35%;
     --sidebar-primary-foreground: 20 15% 10%;
     --sidebar-accent: 20 12% 18%;
     --sidebar-accent-foreground: 35 25% 95%;
