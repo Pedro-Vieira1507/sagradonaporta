@@ -105,17 +105,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/ajuda#trocas" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                <Link to="/trocas-devolucoes" className="text-primary-foreground/70 hover:text-accent transition-colors">
                   Trocas e Devoluções
                 </Link>
               </li>
               <li>
-                <Link to="/ajuda#entregas" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                <Link to="/prazo-entrega" className="text-primary-foreground/70 hover:text-accent transition-colors">
                   Prazo de Entrega
                 </Link>
               </li>
               <li>
-                <Link to="/ajuda#pagamento" className="text-primary-foreground/70 hover:text-accent transition-colors">
+                <Link to="/formas-pagamento" className="text-primary-foreground/70 hover:text-accent transition-colors">
                   Formas de Pagamento
                 </Link>
               </li>
