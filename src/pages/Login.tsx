@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -9,12 +9,24 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import { supabase } from '@/integrations-supabase/client';
 import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { user, isAdmin, loading: authLoading } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-  
+  const [formLoading, setFormLoading] = useState(false);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (!authLoading && user) {
+      if (isAdmin) {
+        navigate('/admin');
+      } else {
+        navigate('/');
+      }
+    }
+  }, [user, isAdmin, authLoading, navigate]);
   // Login form
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
@@ -27,7 +39,7 @@ const Login = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
+    setFormLoading(true);
     
     try {
       const { error } = await supabase.auth.signInWithPassword({
@@ -38,11 +50,10 @@ const Login = () => {
       if (error) throw error;
       
       toast.success('Login realizado com sucesso!');
-      navigate('/');
     } catch (error: any) {
       toast.error(error.message || 'Erro ao fazer login');
     } finally {
-      setLoading(false);
+      setFormLoading(false);
     }
   };
 
@@ -59,7 +70,7 @@ const Login = () => {
       return;
     }
     
-    setLoading(true);
+    setFormLoading(true);
     
     try {
       const { error } = await supabase.auth.signUp({
@@ -76,7 +87,6 @@ const Login = () => {
       if (error) throw error;
       
       toast.success('Cadastro realizado com sucesso! Você já está logado.');
-      navigate('/');
     } catch (error: any) {
       if (error.message.includes('already registered')) {
         toast.error('Este e-mail já está cadastrado');
@@ -84,7 +94,7 @@ const Login = () => {
         toast.error(error.message || 'Erro ao criar conta');
       }
     } finally {
-      setLoading(false);
+      setFormLoading(false);
     }
   };
 
@@ -153,8 +163,8 @@ const Login = () => {
                     </Link>
                   </div>
                   
-                  <Button type="submit" className="w-full btn-primary" disabled={loading}>
-                    {loading ? 'Entrando...' : 'Entrar'}
+                  <Button type="submit" className="w-full btn-primary" disabled={formLoading}>
+                    {formLoading ? 'Entrando...' : 'Entrar'}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </form>
@@ -210,8 +220,8 @@ const Login = () => {
                     />
                   </div>
                   
-                  <Button type="submit" className="w-full btn-primary" disabled={loading}>
-                    {loading ? 'Criando conta...' : 'Criar Conta'}
+                  <Button type="submit" className="w-full btn-primary" disabled={formLoading}>
+                    {formLoading ? 'Criando conta...' : 'Criar Conta'}
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </Button>
                 </form>

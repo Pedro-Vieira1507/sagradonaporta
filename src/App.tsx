@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "@/hooks/useCart";
+import { AuthProvider } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import Login from "./pages/Login";
@@ -19,39 +20,45 @@ import TrocasDevolucoes from "./pages/TrocasDevolucoes";
 import PrazoEntrega from "./pages/PrazoEntrega";
 import FormasPagamento from "./pages/FormasPagamento";
 import NotFound from "./pages/NotFound";
-import ScrollToTop from "./components/ScrollToTop";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <CartProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <ScrollToTop />
-          
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/produtos" element={<Products />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro-empresa" element={<CompanyRegister />} />
-            <Route path="/carrinho" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/quem-somos" element={<QuemSomos />} />
-            <Route path="/missao-visao" element={<MissaoVisao />} />
-            <Route path="/seguranca" element={<Seguranca />} />
-            <Route path="/parceiro" element={<Parceiro />} />
-            <Route path="/ajuda" element={<Ajuda />} />
-            <Route path="/trocas-devolucoes" element={<TrocasDevolucoes />} />
-            <Route path="/prazo-entrega" element={<PrazoEntrega />} />
-            <Route path="/formas-pagamento" element={<FormasPagamento />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </CartProvider>
+      <AuthProvider>
+        <CartProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/produtos" element={<Products />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/cadastro-empresa" element={<CompanyRegister />} />
+              <Route path="/carrinho" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/quem-somos" element={<QuemSomos />} />
+              <Route path="/missao-visao" element={<MissaoVisao />} />
+              <Route path="/seguranca" element={<Seguranca />} />
+              <Route path="/parceiro" element={<Parceiro />} />
+              <Route path="/ajuda" element={<Ajuda />} />
+              <Route path="/trocas-devolucoes" element={<TrocasDevolucoes />} />
+              <Route path="/prazo-entrega" element={<PrazoEntrega />} />
+              <Route path="/formas-pagamento" element={<FormasPagamento />} />
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/produtos" element={<AdminProducts />} />
+              <Route path="/admin/pedidos" element={<AdminOrders />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </CartProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
