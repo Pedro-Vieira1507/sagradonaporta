@@ -8,7 +8,7 @@
 @layer base {
   :root {
     /* Main brand colors - Deep burgundy and gold */
-    --background: 30 20% 98%;
+    /*--background: 30 20% 98%;*/
     --foreground: 20 15% 15%;
 
     --card: 30 25% 97%;
