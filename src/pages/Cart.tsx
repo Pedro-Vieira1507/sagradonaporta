@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, Store } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,7 +10,7 @@ import { useCart } from '@/hooks/useCart';
 import { toast } from 'sonner';
 
 const Cart = () => {
-  const { items, updateQuantity, removeFromCart, cartTotal } = useCart();
+  const { items, updateQuantity, removeFromCart, clearCart, cartTotal } = useCart();
   const navigate = useNavigate();
   const [cep, setCep] = useState('');
   const [shipping, setShipping] = useState<{ price: number; days: string } | null>(null);
@@ -21,41 +21,41 @@ const Cart = () => {
   };
 
   const calculateShipping = async () => {
-    if (cep.length < 8) {
-      toast.error('Digite um CEP válido');
-      return;
-    }
+  if (cep.length < 8) {
+    toast.error('Digite um CEP válido');
+    return;
+  }
+  
+  setLoadingCep(true);
+  
+  try {
+    const response = await fetch(`https://viacep.com.br/ws/${cep.replace('-', '')}/json/`);
+    const data = await response.json();
     
-    setLoadingCep(true);
-    
-    try {
-      // Simulated CEP lookup
-      const response = await fetch(`https://viacep.com.br/ws/${cep.replace('-', '')}/json/`);
-      const data = await response.json();
+    if (data.erro) {
+      toast.error('CEP não encontrado');
+      setShipping(null);
+    } else {
+      // Ajuste para entrega imediata (Simulação baseada na região)
+      const basePrice = data.uf === 'SP' ? 9.90 : 14.90;
       
-      if (data.erro) {
-        toast.error('CEP não encontrado');
-        setShipping(null);
+      // Mensagem em minutos como solicitado
+      const timeRange = data.uf === 'SP' ? '25-35 min' : '45-60 min';
+      
+      if (cartTotal >= 199) {
+        setShipping({ price: 0, days: timeRange }); // Note que mantivemos o nome da chave como 'days' para não quebrar o restante do código, mas o valor é em minutos
+        toast.success(`Entrega rápida disponível para ${data.localidade}!`);
       } else {
-        // Simulated shipping calculation
-        const basePrice = data.uf === 'SP' ? 12.90 : 19.90;
-        const days = data.uf === 'SP' ? '3-5 dias úteis' : '7-10 dias úteis';
-        
-        // Free shipping for orders over R$ 199
-        if (cartTotal >= 199) {
-          setShipping({ price: 0, days });
-          toast.success(`Frete grátis para ${data.localidade}!`);
-        } else {
-          setShipping({ price: basePrice, days });
-          toast.success(`Frete calculado para ${data.localidade}`);
-        }
+        setShipping({ price: basePrice, days: timeRange });
+        toast.success(`Calculamos o melhor tempo de entrega para você!`);
       }
-    } catch {
-      toast.error('Erro ao calcular frete');
-    } finally {
-      setLoadingCep(false);
     }
-  };
+  } catch {
+    toast.error('Erro ao calcular frete');
+  } finally {
+    setLoadingCep(false);
+  }
+};
 
   if (items.length === 0) {
     return (
@@ -68,11 +68,11 @@ const Cart = () => {
               Seu carrinho está vazio
             </h1>
             <p className="text-muted-foreground mb-6">
-              Adicione produtos para continuar comprando
+              Navegue pelas lojas e adicione produtos
             </p>
-            <Link to="/produtos">
+            <Link to="/">
               <Button className="btn-primary">
-                Ver Produtos
+                Ver Estabelecimentos
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </Link>
@@ -83,17 +83,38 @@ const Cart = () => {
     );
   }
 
+  // Pega o nome da loja do primeiro item (já que todos são da mesma loja)
+  const storeName = items[0]?.storeName || "Estabelecimento Parceiro";
+  const storeId = items[0]?.storeId;
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       
       <main className="flex-1 py-12">
         <div className="container-main">
-          <h1 className="section-title mb-8">Meu Carrinho</h1>
+          
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+            <h1 className="section-title">Meu Carrinho</h1>
+            <Button variant="ghost" className="text-destructive hover:text-destructive hover:bg-destructive/10" onClick={clearCart}>
+              <Trash2 className="w-4 h-4 mr-2" />
+              Esvaziar Carrinho
+            </Button>
+          </div>
           
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
+              
+              {/* Info da Loja */}
+              <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 flex items-center gap-3">
+                <Store className="w-5 h-5 text-primary" />
+                <div>
+                  <p className="text-sm text-muted-foreground">Pedido em:</p>
+                  <p className="font-semibold text-primary">{storeName}</p>
+                </div>
+              </div>
+
               {items.map((item) => (
                 <div
                   key={item.id}
@@ -130,25 +151,29 @@ const Cart = () => {
                           <Plus className="w-4 h-4" />
                         </Button>
                       </div>
-                      
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-destructive hover:text-destructive"
-                        onClick={() => removeFromCart(item.id)}
-                      >
-                        <Trash2 className="w-4 h-4 mr-1" />
-                        Remover
-                      </Button>
                     </div>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right flex flex-col justify-between items-end">
                     <p className="font-bold text-foreground">
                       {formatPrice(item.price * item.quantity)}
                     </p>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive hover:text-destructive p-0 h-auto"
+                        onClick={() => removeFromCart(item.id)}
+                      >
+                        Remover
+                    </Button>
                   </div>
                 </div>
               ))}
+              
+              <Link to={`/loja/${storeId}`} className="inline-block mt-4">
+                <Button variant="outline" className="text-primary border-primary hover:bg-primary hover:text-primary-foreground">
+                   + Adicionar mais itens desta loja
+                </Button>
+              </Link>
             </div>
 
             {/* Summary */}
@@ -158,7 +183,7 @@ const Cart = () => {
                 
                 {/* CEP Calculator */}
                 <div className="mb-6">
-                  <Label htmlFor="cep">Calcular Frete</Label>
+                  <Label htmlFor="cep">Calcular Frete Rápido</Label>
                   <div className="flex gap-2 mt-2">
                     <Input
                       id="cep"
@@ -184,11 +209,6 @@ const Cart = () => {
                       - {shipping.days}
                     </p>
                   )}
-                  {cartTotal < 199 && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Frete grátis em compras acima de R$ 199,00
-                    </p>
-                  )}
                 </div>
                 
                 <div className="space-y-3 border-t border-border pt-4">
@@ -198,7 +218,7 @@ const Cart = () => {
                   </div>
                   {shipping && (
                     <div className="flex justify-between">
-                      <span className="text-muted-foreground">Frete</span>
+                      <span className="text-muted-foreground">Taxa de Entrega</span>
                       <span>{shipping.price === 0 ? 'Grátis' : formatPrice(shipping.price)}</span>
                     </div>
                   )}
@@ -214,15 +234,9 @@ const Cart = () => {
                   className="w-full mt-6 btn-gold"
                   onClick={() => navigate('/checkout')}
                 >
-                  Finalizar Compra
+                  Confirmar Pedido
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                
-                <Link to="/produtos" className="block mt-4">
-                  <Button variant="outline" className="w-full">
-                    Continuar Comprando
-                  </Button>
-                </Link>
               </div>
             </div>
           </div>

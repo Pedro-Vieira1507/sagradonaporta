@@ -33,7 +33,10 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
+              {/* Rota ajustada para carregar os produtos de uma loja específica */}
+              <Route path="/loja/:id" element={<Products />} />
               <Route path="/produtos" element={<Products />} />
+              
               <Route path="/login" element={<Login />} />
               <Route path="/cadastro-empresa" element={<CompanyRegister />} />
               <Route path="/carrinho" element={<Cart />} />
