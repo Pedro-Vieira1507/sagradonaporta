@@ -20,11 +20,6 @@ import TrocasDevolucoes from "./pages/TrocasDevolucoes";
 import PrazoEntrega from "./pages/PrazoEntrega";
 import FormasPagamento from "./pages/FormasPagamento";
 import NotFound from "./pages/NotFound";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import AdminProducts from "./pages/admin/AdminProducts";
-import AdminOrders from "./pages/admin/AdminOrders";
-import AdminCompanies from "./pages/admin/AdminCompanies";
-import AdminUsers from "./pages/admin/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -51,12 +46,6 @@ const App = () => (
               <Route path="/trocas-devolucoes" element={<TrocasDevolucoes />} />
               <Route path="/prazo-entrega" element={<PrazoEntrega />} />
               <Route path="/formas-pagamento" element={<FormasPagamento />} />
-              {/* Admin Routes */}
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/produtos" element={<AdminProducts />} />
-              <Route path="/admin/pedidos" element={<AdminOrders />} />
-              <Route path="/admin/empresas" element={<AdminCompanies />} />
-              <Route path="/admin/usuarios" element={<AdminUsers />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
