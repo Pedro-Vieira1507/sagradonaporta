@@ -74,20 +74,42 @@ const Checkout = () => {
   const processPayment = async (formData: any) => {
     setLoading(true);
     try {
-      const { data, error } = await supabase.functions.invoke('process-payment', {
+      const { data, error } = await supabase.functions.invoke('process-card-payment', {
         body: {
           formData,
           orderData: { user_id: user?.id, items, amount: totalAmount, address }
         }
       });
 
-      if (error || data.status === 'rejected') throw new Error("Recusado");
+      // NOVO TRATAMENTO AQUI:
+      if (error) {
+        console.error("ERRO COMPLETO DO SUPABASE:", error);
+        throw new Error(`Falha no servidor: ${error.message || 'Verifique o console'}`);
+      }
+
+      // Lendo a resposta customizada (adeus erros falsos de Supabase!)
+      if (data.success === false) {
+        // Se der erro, ele vai imprimir os detalhes exatos no seu console
+        console.error("ERRO DO MERCADO PAGO:", data.mp_error);
+        
+        // Extrai a mensagem de erro direto da API
+        const errorMessage = data.mp_error?.cause?.[0]?.description || data.mp_error?.message || "Erro nos dados do pagamento.";
+        throw new Error(`Recusado: ${errorMessage}`);
+      }
+
+      // O status do pagamento agora vem dentro de data.data.status
+      const paymentStatus = data.data.status;
+
+      if (paymentStatus === 'rejected') {
+        throw new Error("Pagamento recusado pela operadora do cartão.");
+      }
 
       clearCart();
       toast.success('Pagamento aprovado! Preparando sua entrega.');
       navigate('/pedido-confirmado');
-    } catch (err) {
-      toast.error("Erro no processamento. Verifique os dados do cartão.");
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err.message || "Erro no processamento. Verifique os dados.");
     } finally {
       setLoading(false);
     }
