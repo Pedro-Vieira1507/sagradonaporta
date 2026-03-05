@@ -23,6 +23,7 @@ import NotFound from "./pages/NotFound";
 import { initMercadoPago } from '@mercadopago/sdk-react';
 initMercadoPago('APP_USR-028b1878-2fa3-4504-b646-9159d2b3761c');
 import PedidoConfirmado from './pages/PedidoConfirmado';
+import DashboardEmpresa from './pages/DashboardEmpresa';
 
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
               <Route path="/prazo-entrega" element={<PrazoEntrega />} />
               <Route path="/formas-pagamento" element={<FormasPagamento />} />
               <Route path="/pedido-confirmado" element={<PedidoConfirmado />} />
+              <Route path="/dashboard-empresa" element={<DashboardEmpresa />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
